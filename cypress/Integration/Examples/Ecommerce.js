@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 
 describe('Ecommerce Test Suite', function () {
     it('Ecommerce Test Case', function () {
@@ -6,7 +6,7 @@ describe('Ecommerce Test Suite', function () {
         cy.visit("https://www.automationexercise.com/")
         cy.get('a[href*="/login"]').click()
         cy.get('input[placeholder="Name"]').type('saisandee888')
-        cy.get('input[data-qa="signup-email"]').type('saisandee889@gmail.com')
+        cy.get('input[data-qa="signup-email"]').type('saisandee38001@gmail.com')
         cy.get('button[data-qa="signup-button"]').click()
         cy.get('#id_gender1').check().should('be.checked').and('have.value', 'Mr')
         cy.get('#password').type('saisandee888')
@@ -24,7 +24,42 @@ describe('Ecommerce Test Suite', function () {
         cy.get('#city').type('San Francisco')
         cy.get('#zipcode').type('94105')
         cy.get('#mobile_number').type('1234567890')
-        cy.get('button[data-qa="create-account"]').click()  
+        cy.get('button[data-qa="create-account"]').click()
+        cy.get('h2[data-qa="account-created"]').should('contain', 'Account Created')
+        cy.get('.btn.btn-primary').click()
+        cy.wait(2000) // Wait for the page to load after account creation
+        cy.get('img[alt="Website for automation practice"]').should('be.visible')
+        cy.get('a[href*="#Men"]').click()
+        cy.contains('Tshirts').should('be.visible').click()
+        cy.get('h2[class*="title text-center"]').should('have.text', 'Men - Tshirts Products')
+        cy.get('.productinfo.text-center').should('have.length', 6)
+        cy.get('.productinfo.text-center').filter(':contains("Pure Cotton Neon Green Tshirt")')
+            .then($product => {
+                cy.wrap($product).should('have.length', 1)
 
+            })
+
+        // cy.contains('.productinfo.text-center', 'Pure Cotton Neon Green Tshirt')
+        //     .should('exist')
+        //     .within(() => {
+        //         cy.contains('Add to cart').click()
+        //     })
+        cy.get('a[href="/product_details/31"]').click()
+        cy.get('.product-information').should('be.visible')
+        cy.get('.btn.btn-default.cart').click()
+        cy.wait(1000)
+        cy.get("div[id='cartModal'] p:nth-child(2)").should('be.visible').click()
+        //  cy.get('a[href="/view_cart"]').click()
+        cy.get('.btn.btn-default.check_out').click()
+        cy.get('a[href="/payment"]').should('be.visible').click()
+        cy.get("input[name='name_on_card']").type('Sai Sandeep')
+        cy.get("input[name='card_number']").type('1234567890123456')
+        cy.get("input[name='cvc']").type('123')
+        cy.get("input[name='expiry_month']").type('12')
+        cy.get("input[name='expiry_year']").type('2025')
+        cy.get('#submit').click()
+        cy.wait(2000)
+        cy.get('.title.text-center').should('have.text', 'Order Placed!')
+        cy.get('a[href="/logout"]').click()
     })
 })  
