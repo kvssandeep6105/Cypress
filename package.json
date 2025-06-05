@@ -9,11 +9,20 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "cypress": "^14.4.0",
     "cypress-mochawesome-reporter": "^3.8.2",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "webpack": "^5.99.9"
+  },
+  "cypress-cucumber-preprocessor": {
+    
+    "json": {
+    "enabled": true,
+    "outputDir": "cypress/reports/json"
+    }   
   },
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^22.0.1"
+    "@cypress/browserify-preprocessor": "latest"
   }
 }

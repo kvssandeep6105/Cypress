@@ -22,14 +22,17 @@ class PaymentPage{
         cy.get(this.cvcInput).type('123')
         cy.get( this.expiryMonthInput ).type('12')
         cy.get(this.expiryYearInput).type('2025')
+       
+    }
+    payAndSubmitOrder() {
         cy.get(this.submitButton).click()
         cy.wait(2000)
     }
     placeOrder() {
         cy.get(this.placeOrderButton).should('be.visible').click();
     }
-    verifyOrderConfirmation() {
-        cy.get(this.orderConfirmationMessage).should('contain.text', 'Order Placed!');
+    verifyOrderConfirmation(confirmationMessage) {
+        cy.get(this.orderConfirmationMessage).should('contain.text', confirmationMessage);
     }
     verifyLogout() {
         cy.get(this.logoutLink).should('be.visible').click();

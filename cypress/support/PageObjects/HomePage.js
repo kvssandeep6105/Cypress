@@ -16,13 +16,13 @@ class HomePage{
         cy.visit(Cypress.env('url'));
         
     }
-    selectProduct() {
+    selectProduct(product) {
          cy.get(this.logoSelector).should('be.visible')
         cy.get(this.menCategoryLink).click()
         cy.contains(this.tshirtsLink).should('be.visible').click()
         cy.get(this.tshirtsTitleSelector).should('have.text', 'Men - Tshirts Products')
         cy.get(this.productInfoSelector).should('have.length', 6)
-        cy.get(this.productInfoSelector).filter(':contains("Pure Cotton Neon Green Tshirt")')
+        cy.get(this.productInfoSelector).filter(`:contains("${product}")`).first()
             .then($product => {
                 cy.wrap($product).should('have.length', 1)
 

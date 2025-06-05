@@ -25,13 +25,21 @@ class SignUpPage {
         this.mobileNumberField = '#mobile_number';
         this.createAccountButton = 'button[data-qa*="create-account"]';
         this.continueButton = 'a[class*="btn btn-primary"]';
+        this.accountInformationTitle ='.title.text-center:first-child'; 
+        this.loginEmailField = 'input[data-qa*="login-email"]';  
+        this.loginPasswordField = 'input[data-qa*="login-password"]';
+        this.loginButton = 'button[data-qa*="login-button"]';
+
     }
-    signUp() {
+    signUp(username, email) {
         cy.get(this.loginLink).click()
-        cy.get(this.usernameField).type('saisandee888')
-        cy.get(this.emailField).type('saisandep6601@gmail.com')
+        cy.get(this.usernameField).type(username)
+        cy.get(this.emailField).type(email)
         cy.get(this.signUpButton).click()
          
+    }
+    enterAccountInformationTitle(accountInfoHeader) {
+        cy.get(this.accountInformationTitle).should('contain.text', accountInfoHeader)
     }
     signUpDetails() {
         cy.get(this.genderRadioButton).check().should('be.checked').and('have.value', 'Mr')
@@ -55,6 +63,12 @@ class SignUpPage {
         cy.get(this.createAccountButton).click()
         cy.url().should('include', '/account_created')
         cy.get( this.continueButton).click()
+    }
+    login(username, password) {
+        cy.get(this.loginLink).click()
+        cy.get(this.loginEmailField).type(username)
+        cy.get(this.loginPasswordField).type(password)
+        cy.get(this.loginButton).click()
     }
 
 }export default SignUpPage;
