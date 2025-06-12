@@ -22,13 +22,16 @@ async function setupNodeEvents(on, config) {
 module.exports = defineConfig({
   projectId: '5kaxn2',
   e2e: {
-    setupNodeEvents,
-    specPattern: "cypress/Integration/Examples/*.js",
-    specPattern: "cypress/Integration/Examples/Cucumber/*.feature",
+    setupNodeEvents,specPattern: [
+      "cypress/Integration/Examples/*.js",
+      "cypress/Integration/Examples/Cucumber/*.feature"
+    ],
+    
     supportFile: "cypress/support/e2e.js",
     experimentalStudio: true
   },
   env: {
     url: "https://www.automationexercise.com/",
+    TAGS: process.env.TAGS || '',
   },
 });
